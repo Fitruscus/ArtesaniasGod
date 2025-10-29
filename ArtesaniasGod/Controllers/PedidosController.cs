@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AutenticacionASPNET.Controllers
 {
-    public class HomeController : Controller
+    public class PedidosController : Controller
     {
         public IActionResult Index()
         {
-            return View(); // Retorna Views/Home/Index.cshtml
+            return View();
         }
     }
 }
