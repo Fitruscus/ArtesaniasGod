@@ -71,6 +71,9 @@
         </ul>
     </div>
     <div class="main-content">
+        <div class="d-flex justify-content-end mb-3">
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
         @RenderBody()
     </div>
     <footer class="footer border-top footer text-muted">

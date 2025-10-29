@@ -1,6 +1,8 @@
 using AutenticacionASPNET.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using AutenticacionASPNET.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Identity services
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = false;
@@ -24,6 +26,17 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
+    options.ReturnUrlParameter = "ReturnUrl";
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AuthenticatedOnly", policy => policy.RequireAuthenticatedUser());
+    options.AddPolicy("Adult", policy =>
+        policy.RequireAssertion(context =>
+            context.User.HasClaim(c => c.Type == "Age" && int.TryParse(c.Value, out var age) && age >= 18)));
+    options.AddPolicy("CanEdit", policy =>
+        policy.RequireClaim("CanEdit", "true"));
 });
 
 // Add services to the container.

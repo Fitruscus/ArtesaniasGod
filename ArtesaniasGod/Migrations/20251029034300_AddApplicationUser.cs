@@ -5,7 +5,7 @@
 namespace ArtesaniasGod.Migrations
 {
     /// <inheritdoc />
-    public partial class Actualizado : Migration
+    public partial class AddApplicationUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

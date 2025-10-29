@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutenticacionASPNET.Data;
 using AutenticacionASPNET.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutenticacionASPNET.Controllers
 {
@@ -15,12 +16,16 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             var pedidos = _context.Pedidos.Include(p => p.Cliente).ToList();
             return View(pedidos);
         }
 
         public IActionResult Details(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var pedido = _context.Pedidos.Include(p => p.Cliente).Include(p => p.Detalles).ThenInclude(d => d.Producto).FirstOrDefault(p => p.Id == id);
             if (pedido == null) return NotFound();
@@ -29,6 +34,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             ViewBag.Clientes = _context.Clientes.ToList();
             return View();
         }
@@ -37,6 +44,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Pedido pedido)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (ModelState.IsValid)
             {
                 _context.Pedidos.Add(pedido);
@@ -49,6 +58,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Edit(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var pedido = _context.Pedidos.Find(id);
             if (pedido == null) return NotFound();
@@ -60,6 +71,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Pedido pedido)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id != pedido.Id) return NotFound();
             if (ModelState.IsValid)
             {
@@ -73,6 +86,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Delete(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var pedido = _context.Pedidos.Include(p => p.Cliente).FirstOrDefault(p => p.Id == id);
             if (pedido == null) return NotFound();
@@ -83,6 +98,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             var pedido = _context.Pedidos.Find(id);
             if (pedido != null)
             {

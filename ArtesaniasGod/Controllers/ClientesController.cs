@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutenticacionASPNET.Data;
 using AutenticacionASPNET.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutenticacionASPNET.Controllers
 {
@@ -15,11 +16,15 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             return View(_context.Clientes.ToList());
         }
 
         public IActionResult Details(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id);
             if (cliente == null) return NotFound();
@@ -28,6 +33,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             return View();
         }
 
@@ -35,6 +42,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Cliente cliente)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (ModelState.IsValid)
             {
                 _context.Clientes.Add(cliente);
@@ -46,6 +55,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Edit(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var cliente = _context.Clientes.Find(id);
             if (cliente == null) return NotFound();
@@ -56,6 +67,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Cliente cliente)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id != cliente.Id) return NotFound();
             if (ModelState.IsValid)
             {
@@ -68,6 +81,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Delete(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id);
             if (cliente == null) return NotFound();
@@ -78,6 +93,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             var cliente = _context.Clientes.Find(id);
             if (cliente != null)
             {

@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Correo verificado";
+}
+@if (ViewBag.Verificado == true)
+{
+    <div class="alert alert-success">¡Correo verificado correctamente!</div>
+    <script>
+        setTimeout(function() {
+            window.location.href = '/';
+        }, 2000);
+    </script>
+}
+else
+{
+    <div class="alert alert-danger">No se pudo verificar el correo.</div>
+    <a href="/">Ir al inicio</a>
+}

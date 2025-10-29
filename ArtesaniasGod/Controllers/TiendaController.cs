@@ -2,6 +2,7 @@
 using AutenticacionASPNET.Data;
 using AutenticacionASPNET.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutenticacionASPNET.Controllers
 {
@@ -15,11 +16,15 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             return View(_context.Productos.ToList());
         }
 
         public IActionResult Details(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var producto = _context.Productos.FirstOrDefault(p => p.Id == id);
             if (producto == null) return NotFound();
@@ -28,6 +33,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             return View();
         }
 
@@ -35,6 +42,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Producto producto)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (ModelState.IsValid)
             {
                 _context.Productos.Add(producto);
@@ -46,6 +55,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Edit(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var producto = _context.Productos.Find(id);
             if (producto == null) return NotFound();
@@ -56,6 +67,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Producto producto)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id != producto.Id) return NotFound();
             if (ModelState.IsValid)
             {
@@ -68,6 +81,8 @@ namespace AutenticacionASPNET.Controllers
 
         public IActionResult Delete(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             if (id == null) return NotFound();
             var producto = _context.Productos.FirstOrDefault(p => p.Id == id);
             if (producto == null) return NotFound();
@@ -78,6 +93,8 @@ namespace AutenticacionASPNET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return View("~/Views/Account/AccessDenied.cshtml");
             var producto = _context.Productos.Find(id);
             if (producto != null)
             {

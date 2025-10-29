@@ -16,6 +16,15 @@ namespace AutenticacionASPNET.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Range(18, 120, ErrorMessage = "Debes ser mayor de edad")]
+        [Display(Name = "Edad")]
+        public int Edad { get; set; }
+
+        [Required]
+        [Display(Name = "Rol")]
+        public string Rol { get; set; }
     }
 
     public class LoginViewModel
