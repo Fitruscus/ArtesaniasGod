@@ -1,0 +1,24 @@
+﻿@model IEnumerable<AutenticacionASPNET.Models.Producto>
+@{
+    ViewData["Title"] = "Tienda de Artesanías";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4" style="color:#B8860B;">Tienda de Artesanías</h1>
+    <div class="row">
+        @foreach (var producto in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h2 class="card-title">@producto.Nombre</h2>
+                        <p class="card-text">@producto.Descripcion</p>
+                        <h4 class="text-success">$@producto.Precio.ToString("N2")</h4>
+                        <span class="badge bg-@(producto.Stock > 10 ? "success" : producto.Stock > 0 ? "warning" : "danger")">@producto.Stock unidades</span>
+                        <a asp-action="Detalle" asp-route-id="@producto.Id" class="btn btn-primary mt-3">Ver detalle</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
