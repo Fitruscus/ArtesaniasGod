@@ -31,10 +31,12 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Seed roles and admin user
+// Seed roles y admin user
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var db = services.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
     await AutenticacionASPNET.Data.SeedData.InitializeAsync(services);
 }
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtesaniasGod.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251029005812_DatosActualizados")]
-    partial class DatosActualizados
+    [Migration("20251029011601_Actualizado")]
+    partial class Actualizado
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
