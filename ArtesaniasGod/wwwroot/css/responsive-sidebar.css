@@ -1,0 +1,13 @@
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+    }
+    .main-content {
+        margin-left: 0 !important;
+    }
+    .footer {
+        margin-left: 0 !important;
+    }
+}

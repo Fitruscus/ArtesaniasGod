@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,39 +7,75 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ArtesaniasGod.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #fafbfc;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: linear-gradient(180deg, #d4e157 0%, #fbc02d 100%);
+            color: #fff;
+            padding: 32px 0 0 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .sidebar h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-left: 24px;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 0 0 1.5rem 0;
+        }
+        .sidebar ul li a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+        .sidebar ul li a:hover {
+            color: #333;
+        }
+        .main-content {
+            margin-left: 240px;
+            padding: 40px 30px 30px 30px;
+        }
+        .footer {
+            margin-left: 240px;
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/responsive-sidebar.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ArtesaniasGod</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="sidebar">
+        <h2>ProyectoMVC</h2>
+        <ul>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+            <li><a asp-area="" asp-controller="Tienda" asp-action="Index">Productos</a></li>
+            <li><a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+            <li><a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a></li>
+        </ul>
     </div>
-
-    <footer class="border-top footer text-muted">
+    <div class="main-content">
+        @RenderBody()
+    </div>
+    <footer class="footer border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - ArtesaniasGod - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - ArtesaniasGod
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

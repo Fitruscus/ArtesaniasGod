@@ -1,0 +1,19 @@
+@model AutenticacionASPNET.Models.Pedido
+@{
+    ViewData["Title"] = "Detalles Pedido";
+}
+<h1>Detalles del Pedido</h1>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Cliente</dt>
+        <dd class="col-sm-10">@Model.Cliente?.Nombre</dd>
+        <dt class="col-sm-2">Fecha</dt>
+        <dd class="col-sm-10">@Model.FechaPedido.ToShortDateString()</dd>
+        <dt class="col-sm-2">Dirección</dt>
+        <dd class="col-sm-10">@Model.Direccion</dd>
+        <dt class="col-sm-2">Monto Total</dt>
+        <dd class="col-sm-10">@Model.MontoTotal.ToString("C")</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>

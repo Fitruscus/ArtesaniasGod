@@ -5,6 +5,7 @@
 
 <div class="container mt-4">
     <h1 class="mb-4" style="color:#B8860B;">Tienda de Artesanías</h1>
+    <a class="btn btn-success mb-3" asp-action="Create">Agregar Producto</a>
     <div class="row">
         @foreach (var producto in Model)
         {
@@ -15,7 +16,12 @@
                         <p class="card-text">@producto.Descripcion</p>
                         <h4 class="text-success">$@producto.Precio.ToString("N2")</h4>
                         <span class="badge bg-@(producto.Stock > 10 ? "success" : producto.Stock > 0 ? "warning" : "danger")">@producto.Stock unidades</span>
-                        <a asp-action="Detalle" asp-route-id="@producto.Id" class="btn btn-primary mt-3">Ver detalle</a>
+                        <div class="mt-3 d-flex justify-content-center gap-2">
+                            <a asp-action="Details" asp-route-id="@producto.Id" class="btn btn-primary">Ver detalle</a>
+                            <form asp-action="Delete" asp-route-id="@producto.Id" method="post" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
